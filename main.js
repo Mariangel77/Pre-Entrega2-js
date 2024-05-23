@@ -1,5 +1,5 @@
 
-  /*
+  
 const vinos = [
     {id:1, bodega:"Rutini Wines" , marca:"Malvec" , tipo:"Tinto" , varietal:"Cabernet" , volumen:"720ml" , precio:28300 },
     {id:2, bodega:"Catena Zapata" , marca:"Anélica Zapata" , tipo:"Tinto" , varietal:"Malbec" , volumen:"720ml" , precio:29520 },
@@ -74,4 +74,3 @@ CalcularCuotas()
 
 
 
-*/
