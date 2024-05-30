@@ -1,5 +1,85 @@
+// Variables
+
+const carrito = document.querySelector("#carrito");
+const listaCarrito = document.querySelector("#lista-carrito tbody");
+const vaciarCarritBtn = document.querySelector("#vaciar-carrito")
+const listaVinos = document.querySelector("#lista-vinos");
+let artCarrito = [] ;
+
+cargarEventlisteners()
+function cargarEventlisteners (){
+    listaVinos.addEventListener("click", agregar_vino)
+}
+
+//Funciones
+
+function agregar_vino(e){
+    e.preventDefault();
+    if(e.target.classList.contains("agregar-carrito")){
+        vinoSeleccionado = e.target.parentElement.parentElement
+        leerDatosVino(vinoSeleccionado)
+    }
+}
+
+function leerDatosVino(vino){
+     //Objeto
+
+    infoVino = {
+        imagen: vino.querySelector('img').src,
+        bodegaMarca: vino.querySelector('p').textContent,
+        precio: vino.querySelector('.precio').textContent,
+        Id: vino.querySelector('a').getAttribute('data-id'),
+        cantidad: 1
+    }
+
+    artCarrito = [...artCarrito, infoVino]
+
+    console.log(artCarrito)
+
+    carritoHtml()
+}
+
+function carritoHtml () {
+
+    limpiarHtml();
+
+    artCarrito.forEach( vino => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+        <td>
+            ${vino.bodegaMarca}
+        </td>
+
+        `;
+
+        listaCarrito.appendChild(row)
+    });
+
+}
+
+function limpiarHtml(){
+
+    while(listaCarrito.firstChild){
+        listaCarrito.removeChild(listaCarrito.firstChild)
+    }
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const vinos = [
     {id:1, bodega:"Rutini Wines" , marca:"Malvec" , tipo:"Tinto" , varietal:"Cabernet" , volumen:"720ml" , precio:28300 },
     {id:2, bodega:"Catena Zapata" , marca:"Anélica Zapata" , tipo:"Tinto" , varietal:"Malbec" , volumen:"720ml" , precio:29520 },
@@ -18,6 +98,10 @@ const vinos = [
     {id:15, bodega: "Rutini Wines", marca: "Rutini", tipo: "Blanco", varietal:"Chardonnay" , volumen: "750 cc", precio:24570},
     {id:16, bodega: "Catena Zapata", marca: "Saint Felicien", tipo: "Tinto", varietal:"Bonarda" , volumen: "750 mL", precio: 33620},];
 
+
+
+
+
 const VinosCaros = vinos.filter((el) => el.precio >= 20000)
 const VinosBaratos = vinos.filter((el) => el.precio <= 20000)
 
@@ -35,6 +119,8 @@ const actualizado2 = VinosBaratos.map((el) =>{
     }
 })
 
+
+/*
 let preguntar = prompt("¿Te interesa ver vinos caros?")
 
 if (preguntar == "si"){
@@ -72,5 +158,4 @@ if (cuotas ==3 || cuotas ==6){
 
 CalcularCuotas()
 
-
-
+*/

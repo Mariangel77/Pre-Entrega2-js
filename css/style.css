@@ -1,27 +1,20 @@
-.promociones{
-    margin-left: 15%;
+.navbar{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    padding: 10px 0;
 }
 
-.nav-link{
-    font-size: 200%;
+.logo{
+    margin-left: 10%;
 }
 
-.lista{
-    margin-right: 60%;
+.img-fluid{
+    margin-top: 15%;
 }
 
-.cervezas{
-    margin-left: 15%;
-}
 
-.comestibles{
-    margin-left: 15%;
-}
-
-.vodka{
-    margin-left: 15%;
-}
-
-.vino{
-    margin-left: 15%;
+.vinos-caros{
+    margin-top: 10%;
 }
