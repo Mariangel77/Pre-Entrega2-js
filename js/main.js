@@ -8,7 +8,11 @@ let artCarrito = [] ;
 
 cargarEventlisteners()
 function cargarEventlisteners (){
-    listaVinos.addEventListener("click", agregar_vino)
+    listaVinos.addEventListener("click", agregar_vino);
+
+    //Eliminar cosas del carrito
+
+    carrito.addEventListener("click", eliminarVino)
 }
 
 //Funciones
@@ -21,42 +25,86 @@ function agregar_vino(e){
     }
 }
 
+function eliminarVino (e){
+    if (e.target.classList.contains('borrar-vino')){
+        const vinoId =  e.target.getAttribute('data-id');
+        const existe = artCarrito.some(vino =>(vino.id === vinoId && vino.cantidad > 1));
+        
+        if(existe){
+            const vinos = artCarrito.map(vino => {
+                if(vino.id === vinoId){
+                    vino.cantidad--;
+                }
+
+                return vino;
+            });
+
+            artCarrito = [...vinos];
+        }else{
+            artCarrito = artCarrito.filter(vino => vino.id !== vinoId)
+        }
+        carritoHtml();
+    }
+}
+
+
 function leerDatosVino(vino){
      //Objeto
-
     infoVino = {
         imagen: vino.querySelector('img').src,
         bodegaMarca: vino.querySelector('p').textContent,
         precio: vino.querySelector('.precio').textContent,
-        Id: vino.querySelector('a').getAttribute('data-id'),
+        id: vino.querySelector('a').getAttribute('data-id'),
         cantidad: 1
     }
 
-    artCarrito = [...artCarrito, infoVino]
+    const existe = artCarrito.some(vino => vino.id === infoVino.id);
+    if(existe){
+        const vinos = artCarrito.map(vino => {
+            if(vino.id === infoVino.id){
+                vino.cantidad++;
+                return vino;
+            }else{
+                return vino;
+            }
+        });
+        artCarrito = [...vinos]
 
+    }else{
+        artCarrito = [...artCarrito, infoVino];
+    }
     console.log(artCarrito)
-
     carritoHtml()
 }
+
+
 
 function carritoHtml () {
 
     limpiarHtml();
 
     artCarrito.forEach( vino => {
+        const {imagen, bodegaMarca, cantidad, precio, id} = vino;
         const row = document.createElement('tr');
 
         row.innerHTML = `
         <td>
-            ${vino.bodegaMarca}
+            <img src= "${imagen}" width= "50"></img>
+        </td>
+        
+        <td>${bodegaMarca}</td>
+        <td>${cantidad}</td>
+        <td>${precio}</td>
+        <td>
+            <a href= "#" class= "borrar-vino" data-id= "${id}">X</a>
         </td>
 
         `;
 
         listaCarrito.appendChild(row)
     });
-
 }
+
 
 function limpiarHtml(){
 
